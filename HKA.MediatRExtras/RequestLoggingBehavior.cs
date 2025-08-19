@@ -1,7 +1,9 @@
-﻿using HKA.MediatRExtras.Converters;
+﻿using HKA.MediatRExtras.Attributes;
+using HKA.MediatRExtras.Converters;
 using HKA.MediatRExtras.DataResolvers;
 using MediatR;
 using Newtonsoft.Json;
+using System.Reflection;
 
 namespace HKA.MediatRExtras;
 
@@ -28,17 +30,27 @@ public class RequestLoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRe
     {
         var reqType = typeof(TRequest);
         var serializedRequest = JsonConvert.SerializeObject(request, _settings);
+        var attr = reqType.GetCustomAttributes().OfType<MediatorRequestAttribute>().SingleOrDefault();
         try
         {
-            _logger.Trace("Request : {reqType} : {@request}", reqType.Name, serializedRequest);
+            if (attr == null || !attr.IgnoreRequestLogging)
+                _logger.Trace("Request : {reqType} : {@request}", reqType.Name, serializedRequest);
+            else
+                _logger.Trace("Request : {reqType}", reqType.Name);
             var result = await next(cancellationToken);
             var serializedResult = JsonConvert.SerializeObject(result, _settings);
-            _logger.Trace("Result for request {reqType} {@request} : {@result}", reqType.Name, serializedRequest, serializedResult);
+            if (attr == null || !attr.IgnoreResponseLogging)
+                _logger.Trace("Result for : {reqType} \n{@result}", reqType.Name, serializedResult);
+            else
+                _logger.Trace("Result for : {reqType} received", reqType.Name);
             return result;
         }
         catch (Exception e)
         {
-            _logger.Error(e, "Error on request - Request : {reqType} - Request Data : {@request}", reqType.Name, serializedRequest);
+            if (attr == null || !attr.IgnoreRequestLogging)
+                _logger.Error(e, "Error on request \n- Request : {reqType} \n- Request Data : {@request}", reqType.Name, serializedRequest);
+            else
+                _logger.Error(e, "Error on request \n- Request : {reqType}", reqType.Name);
             throw;
         }
     }
