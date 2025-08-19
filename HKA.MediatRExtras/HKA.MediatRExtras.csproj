@@ -1,17 +1,48 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFrameworks>net9.0;net8.0</TargetFrameworks>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>net9.0;net8.0</TargetFrameworks>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+		<AssemblyName>HKA.MediatRExtras</AssemblyName>
+		<RootNamespace>HKA.MediatRExtras</RootNamespace>
+		<Description>MediatR Necessary Pipelines for .NET</Description>
+		<PackageProjectUrl>https://github.com/HesamKashefi/HKA.MediatRExtras.git</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/HesamKashefi/HKA.MediatRExtras</RepositoryUrl>
+		<RepositoryType>Public</RepositoryType>
+		<PackageTags>mediatr,mediator,.net8,.net9</PackageTags>
+		<Authors>HesamKasehfi</Authors>
+		<Version>1.0.0</Version>
+		<Title>HKA.MediatRExtras</Title>
+		<CustomName>HKA.MediatRExtras</CustomName>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageReleaseNotes>
+			Initial release of HKA.MediatRExtras, providing essential MediatR pipelines for .NET applications.
+		</PackageReleaseNotes>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="FluentValidation" Version="12.0.0" />
-    <PackageReference Include="MediatR" Version="13.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="NLog" Version="6.0.3" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Include="..\LICENSE.txt">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="..\README.md">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="FluentValidation" Version="12.0.0" />
+		<PackageReference Include="MediatR" Version="13.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="NLog" Version="6.0.3" />
+	</ItemGroup>
 
 </Project>

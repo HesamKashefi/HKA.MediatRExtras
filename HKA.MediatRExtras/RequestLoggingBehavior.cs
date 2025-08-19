@@ -1,4 +1,5 @@
 ﻿using HKA.MediatRExtras.Converters;
+using HKA.MediatRExtras.DataResolvers;
 using MediatR;
 using Newtonsoft.Json;
 
